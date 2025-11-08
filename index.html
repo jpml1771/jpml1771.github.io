@@ -5,7 +5,323 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redes y Fluidos - Ingeniería y Consultoría</title>
     <link rel="icon" type="image/png" href="assets/images/TAB_LOGO.png">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!--<link rel="stylesheet" href="assets/css/style.css">-->
+    <style>
+        /* === RESET BÁSICO Y FUENTES === */
+        :root {
+            --primary-blue: #0A3D62; /* Un azul oscuro profesional */
+            --light-gray: #f4f4f4;
+            --dark-text: #333;
+            --light-text: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Para el scroll suave */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2 {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        /* === BARRA DE NAVEGACIÓN === */
+        #main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        #main-nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            /* TODO: Reemplaza este texto con tu logo: <img src="logo.png" alt="Redes y Fluidos"> */
+        }
+
+        #main-nav .logo img {
+            /* Fija la altura del logo. Ajústala a tu gusto. */
+            height: 40px; 
+            
+            /* Auto-ajusta el ancho para mantener la proporción */
+            width: auto; 
+            
+            /* Ayuda a alinear verticalmente si hay problemas */
+            display: block; 
+        }
+
+        #main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        #main-nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        #main-nav ul li a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        #main-nav ul li a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* === ESTILOS DEL BOTÓN HAMBURGUESA === */
+        #hamburger-btn {
+            display: none; /* Oculto en desktop por defecto */
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px; /* Espacio entre las barras */
+            padding: 10px;
+        }
+
+        #hamburger-btn .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* === SECCIÓN HERO (INICIO) === */
+        #hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 90vh;
+            background: linear-gradient(rgba(10, 61, 98, 0.7), rgba(10, 61, 98, 0.7)), url('assets/images/fondo.png') no-repeat center center/cover;
+            /* Foto de fondo genérica de tuberías/industria. Reemplazar con una propia. */
+            color: var(--light-text);
+        }
+
+        #hero h1 {
+            font-size: 4rem; /* Increased from 3rem (you can adjust this value) */
+            font-weight: 700; /* Ensures it is bold */
+            color: var(--light-text);
+        }
+
+        #hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-blue);
+            color: var(--light-text);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* === SECCIÓN QUIÉNES SOMOS (ABOUT) === */
+        #about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        #about-image {
+            width: 100%;
+            height: 300px;
+            background: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974') no-repeat center center/cover;
+            /* Foto de equipo de ingeniería. Reemplazar. */
+            border-radius: 5px;
+        }
+
+        /* === SECCIÓN PROYECTOS === */
+        #projects {
+            text-align: center;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-card-content {
+            padding: 1.5rem;
+        }
+
+        .project-card-content h3 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        /* === SECCIÓN CONTACTO === */
+        #contact .container {
+            max-width: 800px;
+            text-align: center; /* Centramos todo el contenido */
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            font-size: 1.15rem; /* Hacemos el texto un poco más grande */
+            line-height: 1.8; /* Aumentamos el espacio entre líneas */
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem; /* Espacio entre cada línea de info */
+        }
+
+        .contact-info strong {
+            color: var(--primary-blue); /* Resaltamos los títulos como el nombre */
+        }
+
+        .contact-info a {
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+            color: var(--primary-blue);
+        }
+
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-blue);
+            color: var(--light-text);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            
+            /* --- INICIO: NUEVOS ESTILOS DE NAV MÓVIL --- */
+
+            /* Mostramos el botón hamburguesa */
+            #hamburger-btn {
+                display: flex; /* Se vuelve visible en móvil */
+                z-index: 101; /* Asegura que esté sobre otros elementos */
+            }
+
+            /* Ajustamos la barra de navegación principal */
+            #main-nav {
+                /* Mantenemos space-between para alinear logo y botón */
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row; /* Asegura que sea horizontal */
+                padding: 1rem 2rem; /* Revertimos el padding de columna */
+            }
+            
+            /* Ocultamos la lista de enlaces por defecto */
+            #main-nav ul#nav-links {
+                display: none; /* Oculta por defecto */
+                position: absolute; /* La sacamos del flujo normal */
+                top: 0; /* La alineamos con el top de la página */
+                left: 0;
+                width: 100%;
+                height: 100vh; /* Ocupa toda la altura de la pantalla */
+                padding-top: 5rem; /* Deja espacio para la barra de nav */
+                
+                background-color: white;
+                flex-direction: column; /* Apila los enlaces */
+                text-align: center;
+                z-index: 100; /* Detrás del botón de hamburguesa pero sobre el resto */
+                
+                /* Animación de entrada */
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            /* Clase .show que JS agregará */
+            #main-nav ul#nav-links.show {
+                display: flex; /* La muestra */
+                transform: translateX(0); /* La desliza a su posición */
+            }
+
+            #main-nav ul li {
+                margin-left: 0; /* Resetea el margen */
+                padding: 1.5rem 0; /* Espacio vertical más grande */
+                width: 100%;
+                border-top: none; /* Quitamos bordes previos si los hubiera */
+            }
+            
+            #main-nav ul li a {
+                font-size: 1.25rem; /* Letra más grande para menú móvil */
+            }
+
+            /* --- FIN: NUEVOS ESTILOS DE NAV MÓVIL --- */
+
+            
+            /* (Estilos que ya tenías) */
+            #about .container {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -101,6 +417,26 @@
     </footer>
 
 
-    <script src="js/main.js"></script>
+    <!--<script src="js/main.js"></script>-->
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+
+        // Función para 'toggle' (alternar) la clase .show en los enlaces
+        hamburgerBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+            // Opcional: Para accesibilidad (indica si el menú está expandido)
+            const isExpanded = navLinks.classList.contains('show');
+            hamburgerBtn.setAttribute('aria-expanded', isExpanded);
+        });
+
+        // Opcional: Cierra el menú al hacer clic en un enlace (útil en one-page)
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('show');
+                hamburgerBtn.setAttribute('aria-expanded', false);
+            }
+        });
+    </script>
 </body>
 </html>
